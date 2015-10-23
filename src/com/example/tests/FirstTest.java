@@ -18,16 +18,24 @@ public class FirstTest {
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = "https://www.google.com.ua/";
+        baseUrl = "http://localhost:8000/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     @Test
     public void testUntitled() throws Exception {
-        driver.get(baseUrl + "/?gws_rd=ssl#q=find+test+books");
-        driver.findElement(By.id("lst-ib")).clear();
-        driver.findElement(By.id("lst-ib")).sendKeys("find books for testing");
-        driver.findElement(By.linkText("AR BookFinder US - Welcome")).click();
+        driver.get(baseUrl + "/dvwa-1.9/login.php");
+        driver.findElement(By.name("username")).clear();
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).clear();
+        driver.findElement(By.name("password")).sendKeys("password");
+        driver.findElement(By.name("Login")).click();
+        driver.findElement(By.linkText("About")).click();
+        driver.findElement(By.xpath("//li[@onclick=\"window.location='logout.php'\"]")).click();
+        driver.findElement(By.name("username")).clear();
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).clear();
+        driver.findElement(By.name("password")).sendKeys("password");
     }
 
     @After
